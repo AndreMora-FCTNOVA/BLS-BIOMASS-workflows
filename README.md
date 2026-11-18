@@ -76,7 +76,7 @@ The BLS-BIOMASS notebooks use combinations of **SNAP GPT, GDAL, NumPy, pandas, G
 ---
 ## Provenance and Use Context
 
-The workflows were developed in connection with **Below, Litter & Shrub BIOMASS density mapping combining optical, LiDAR and SAR Earth Observation data (BLS-BIOMASS)**, an ESA-funded research project involving the **Instituto Superior de Agronomia, Universidade de Lisboa**, and collaborating institutions.
+The workflows were developed in connection with **Below, Litter & Shrub BIOMASS density mapping combining optical, LiDAR and SAR Earth Observation data (BLS-BIOMASS)**, an ESA-funded research project involving the **Uninova - Instituto de Desenvolvimento de Novas Tecnologias**, **Instituto Superior de Agronomia, Universidade de Lisboa**, and **Norwegian University of Life Sciences**.
 
 The root-level sensor folders provide reusable preprocessing references developed for study plots in Portugal and Spain. The separate `BLS-BIOMASS/` folder contains additional code used for project-specific data preparation and biomass mapping.
 

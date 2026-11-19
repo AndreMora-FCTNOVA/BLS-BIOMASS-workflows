@@ -1,37 +1,44 @@
-# SNAP Preprocessing Workflows
+# Below, Litter & Shrub BIOMASS density mapping combining optical, LiDAR and SAR Earth Observation data
 
 This repository contains **transparent, auditable remote sensing workflows** developed and used in the Iberian Peninsula within the ESA-funded **BLS-BIOMASS** project.
 
-The repository has two distinct parts:
+The repository has four distinct parts/steps:
 
-1. **Sensor-specific SNAP preprocessing workflows** (`ALOS-2/`, `Sentinel-1/`, `Sentinel-2/`): generalizable Jupyter notebooks that expose processing parameters, XML graph generation, and processing decisions.
-2. **BLS-BIOMASS project workflows** (`BLS-BIOMASS/`): research notebooks and SNAP XML graphs covering additional raster preprocessing, dataset preparation, biomass mapping, and uncertainty-related summaries.
+1. **Sensor-specific SNAP preprocessing workflows** (`ALOS-2/`, `S1/`, `S2/`): generalizable Jupyter notebooks that expose processing parameters, XML graph generation, and processing decisions.
+2. **Sensor-specific and project-specific preprocessing** : research notebooks and SNAP XML graphs covering additional raster preprocessing
+3. **Data Preparation step** - Prepare study areas, feature interpolation.
+3. **BLS-BIOMASS project final step** (`BLS-BIOMASS/`): research notebooks for biomass mapping, and uncertainty-related summaries.
 
-The focus is on **inspectable research workflows**, not packaged software or a one-click processing system. The original sensor-specific workflows and the project-specific additions are kept separate so their purposes and processing boundaries remain clear.
+The focus is on **inspectable research workflows**, not packaged software or a one-click processing system. 
+
+This workflow produces four biomass pools (Abov**eground, Belowground, Litter and Shrub**) for forest areas in several regions of Portugal and Spain, together with their corresponding uncertainty assessments. The areas in **Portugal** are Mafra, Monsanto, Pombal, Serra Lousã, Sintra-Cascais and Vila Pouca de Aguiar; and in **Spain** are Extremadura, Huesca-Zaragoza, Leon and Teruel. 
+
+For each area the dataset includes individual raster maps in **GeoTIFF** format, with 25m resolution, for all extracted parameters, as well as a **Geopackage** dataset containing the same parameters represented as a point cloud. 
+
+The following **statistical parameters** are included: Coefficient of Variation, Interquartile Range, Kurtosis, Mean, Median, Relative Standard Error, Skewness, and Standard Error.
 
 ---
 ## Repository Structure
 
 ```text
-snap-preprocessing-workflows/
-├── ALOS-2/                 # General-purpose ALOS-2 preprocessing workflows
-├── Sentinel-1/             # General-purpose Sentinel-1 preprocessing workflows
-├── Sentinel-2/             # General-purpose Sentinel-2 preprocessing workflows
-└── BLS-BIOMASS/            # Project-specific workflows (see below)
-    ├── DataPreprocessing/
-    │   ├── ALOS-2/         # Band splitting and mosaicking
-    │   ├── S1-GRD/         # Band splitting and mosaicking
-    │   ├── S1-SLC/         # SNAP GPT processing, XML graphs, band splitting, mosaicking
-    │   ├── S2/             # Band splitting and mosaicking
-    │   └── 4_GENERIC_NoData.ipynb
-    ├── DatasetPreparation/
-    │   ├── 10_Generate_StudyAreas_PointFile.ipynb
-    │   └── 20_Features_Interpolation.ipynb
-    └── BiomassMapping/
-        └── 30_StudyArea_Mapping_Uncertainty.ipynb
+bls-biomass-workflows/
+├── 0-DataPreparation-GeneralPurpose
+│   ├── ALOS-2/         # General-purpose ALOS-2 preprocessing workflows
+│   ├── S1-GRD/         # General-purpose Sentinel-1 GRD preprocessing workflows
+│   └── S1-SLC/         # General-purpose Sentinel-1 SLC preprocessing workflows
+│   └── S2/             # General-purpose Sentinel-2 preprocessing workflows
+├── 1-DataPreprocessing/
+│   ├── ALOS-2/         # Band splitting and mosaicking
+│   ├── S1-GRD/         # Band splitting and mosaicking
+│   ├── S1-SLC/         # SNAP GPT processing, XML graphs, band splitting, mosaicking
+│   ├── S2/             # Band splitting and mosaicking
+│   └── 4_GENERIC_NoData.ipynb
+├── 2-DatasetPreparation/
+│   ├── 10_Generate_StudyAreas_PointFile.ipynb
+│   └── 20_Features_Interpolation.ipynb
+└── 3-BiomassMapping/
+    └── 30_StudyArea_Mapping_Uncertainty.ipynb
 ```
-
-The `BLS-BIOMASS/` files retain the original notebook and graph names supplied by the project contributors. They are presented as **project workflows**, rather than replacements for the sensor-specific reference workflows at the repository root.
 
 ---
 ## Scope and Philosophy
@@ -42,7 +49,7 @@ This repository is designed around the following principles:
   The notebooks are research workflows meant to be read, inspected, adapted, and extended, rather than a Python package or command-line application.
 
 - **SNAP-based, inspectable preprocessing**
-  The original sensor-specific workflows use ESA SNAP operators through `gpt`, with XML graphs generated programmatically where needed. The BLS-BIOMASS material additionally includes supplied SNAP XML graphs and Python/GDAL-based processing steps.
+  The general purpose sensor-specific workflows use ESA SNAP operators through `gpt`, with XML graphs generated programmatically where needed. The BLS-BIOMASS material additionally includes supplied SNAP XML graphs and Python/GDAL-based processing steps.
 
 - **Reproducibility without abstraction loss**  
   Processing parameters and decisions remain visible in the notebooks and graph definitions. Reusing the workflows requires appropriate input data and environment configuration.
@@ -50,26 +57,19 @@ This repository is designed around the following principles:
 - **Sensor-specific separation**  
   ALOS-2, Sentinel-1, and Sentinel-2 processing steps remain distinguishable; no unified abstraction is imposed on different satellite products.
 
-- **Explicit scope boundaries**
-  The original top-level sensor workflows focus on *preprocessing*. The project-specific `BLS-BIOMASS/` material extends to dataset preparation, biomass predictions using previously trained regressors, and prediction-distribution summaries.
-
----
-## Intended Use
-
-This repository is intended for researchers who need transparent preprocessing and mapping code, projects where parameter traceability matters, and users comfortable adapting notebooks to their own study areas, coordinate reference systems, input products, and processing environments.
-
-It is **not** a one-click processing tool, a general remote sensing library, or a production data service.
 
 ---
 ## Computational Environment and Inputs
 
-The original sensor-specific preprocessing workflows assume ESA SNAP installed and accessible via `gpt`, a Jupyter-capable Python environment with the relevant geospatial libraries (including GDAL), and sufficient disk space for intermediate SNAP products. See the corresponding sensor folders for their processing configurations.
+The general purpose sensor-specific preprocessing workflows assume ESA SNAP installed and accessible via `gpt`, a Jupyter-capable Python environment with the relevant geospatial libraries (including GDAL), and sufficient disk space for intermediate SNAP products. See the corresponding sensor folders for their processing configurations.
 
-The BLS-BIOMASS notebooks use combinations of **SNAP GPT, GDAL, NumPy, pandas, GeoPandas, SciPy, Shapely, joblib, and XGBoost**, depending on the notebook. The Sentinel-1 SLC workflow also refers to **SNAPHU** and a locally configured processing environment.
+The BLS-BIOMASS project-specific notebooks use combinations of **SNAP GPT, GDAL, NumPy, pandas, GeoPandas, SciPy, Shapely, joblib, and XGBoost**, depending on the notebook. The Sentinel-1 SLC workflow also refers to **SNAPHU** and a locally configured processing environment.
+
+**To execute the Jupyter code**, you must follow the order specified in the filename (e.g. 1_, 3_). The sensor-specific workflows can be executed in any order, they only need to be complete before moving to another step (DataPreprocessing, DatasetPreparation and BiomassMapping). 
 
 **Important reuse limitations:**
 
-- The supplied BLS-BIOMASS notebooks contain **local Windows filesystem paths** and expect specific directory structures. These must be adapted before execution.
+- The supplied notebooks contain **local Windows filesystem paths** and expect specific directory structures. These must be adapted before execution.
 - The dataset-preparation and mapping notebooks depend on **external raster/vector inputs, feature-selection results, and trained regression models**. Those inputs and model files are **not included** in the supplied code package.
 - The notebooks have **not been converted into a fully portable or automatically executable pipeline**. Their presence here documents the processing implementations; it does not imply that the published paper can be reproduced from this repository alone.
 
@@ -90,8 +90,3 @@ The publication describes biomass estimation for four components: aboveground bi
 ## License
 
 The repository's existing code is released under the **MIT License**; see [`LICENSE`](LICENSE). Reuse or redistribution of contributed material should follow the applicable permissions and attribution requirements.
-
----
-## Notes on Extension
-
-The original sensor-specific preprocessing workflows are intentionally conservative: they are intended to be extended as SNAP operators, satellite products, or research requirements evolve, rather than replaced. Project-specific material is maintained separately so future additions do not obscure the scope of those reference workflows.

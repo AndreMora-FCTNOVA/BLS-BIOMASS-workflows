@@ -11,12 +11,19 @@ The repository has four distinct parts/steps:
 
 The focus is on **inspectable research workflows**, not packaged software or a one-click processing system. 
 
-This workflow produces four biomass pools (Abov**eground, Belowground, Litter and Shrub**) for forest areas in several regions of Portugal and Spain, together with their corresponding uncertainty assessments. The areas in **Portugal** are Mafra, Monsanto, Pombal, Serra Lousã, Sintra-Cascais and Vila Pouca de Aguiar; and in **Spain** are Extremadura, Huesca-Zaragoza, Leon and Teruel. 
+This workflow produces four biomass pools (**Aboveground, Belowground, Litter and Shrub**) for forest areas in several regions of Portugal and Spain, together with their corresponding uncertainty assessments. The areas in **Portugal** are Mafra, Monsanto, Pombal, Serra Lousã, Sintra-Cascais and Vila Pouca de Aguiar; and in **Spain** are Extremadura, Huesca-Zaragoza, Leon and Teruel. 
 
-For each area the dataset includes individual raster maps in **GeoTIFF** format, with 25m resolution, for all extracted parameters, as well as a **Geopackage** dataset containing the same parameters represented as a point cloud. 
+For each area the generated dataset includes individual raster maps in **GeoTIFF** format, with 25m resolution, for all extracted parameters, as well as a **Geopackage** dataset containing the same parameters represented as a point cloud. 
 
-The following **statistical parameters** are included: Coefficient of Variation, Interquartile Range, Kurtosis, Mean, Median, Relative Standard Error, Skewness, and Standard Error.
-
+The following **statistical parameters** are included: 
+* Coefficient of Variation
+* Interquartile Range
+* Kurtosis
+* Mean (Biomass value)
+* Median
+* Relative Standard Error
+* Skewness
+* Standard Error.
 ---
 ## Repository Structure
 
@@ -77,8 +84,6 @@ The BLS-BIOMASS project-specific notebooks use combinations of **SNAP GPT, GDAL,
 ## Provenance and Use Context
 
 The workflows were developed in connection with **Below, Litter & Shrub BIOMASS density mapping combining optical, LiDAR and SAR Earth Observation data (BLS-BIOMASS)**, an ESA-funded research project involving the **Uninova - Instituto de Desenvolvimento de Novas Tecnologias**, **Instituto Superior de Agronomia, Universidade de Lisboa**, and **Norwegian University of Life Sciences**.
-
-The root-level sensor folders provide reusable preprocessing references developed for study plots in Portugal and Spain. The separate `BLS-BIOMASS/` folder contains additional code used for project-specific data preparation and biomass mapping.
 
 ### Related Publication
 

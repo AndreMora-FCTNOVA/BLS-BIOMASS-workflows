@@ -4,7 +4,7 @@ This repository contains **transparent, auditable remote sensing workflows** dev
 
 The repository has four distinct parts/steps:
 
-1. **Sensor-specific SNAP preprocessing workflows** (`0-DataPreprocessing-GeneralPurpose/`): generalizable Jupyter notebooks that expose processing parameters, XML graph generation, and processing decisions.
+1. **Sensor-specific SNAP preprocessing workflows** (`0-DataPreprocessing-GeneralPurpose/`): generalizable Jupyter notebooks that expose processing parameters and processing decisions.
 2. **Sensor-specific and project-specific preprocessing** (`1-DataPreprocessing/`): research notebooks and SNAP XML graphs covering additional raster preprocessing
 3. **Data Preparation step**  (`2-DatasetPreparation/`): Prepare study areas, feature interpolation.
 4. **BLS-BIOMASS project final step** (`3-BiomassMapping/`): research notebooks for biomass mapping, and uncertainty-related summaries.
@@ -57,7 +57,7 @@ This repository is designed around the following principles:
   The notebooks are research workflows meant to be read, inspected, adapted, and extended, rather than a Python package or command-line application.
 
 - **SNAP-based, inspectable preprocessing**
-  The general purpose sensor-specific workflows use ESA SNAP operators through `gpt`, with XML graphs generated programmatically where needed. The BLS-BIOMASS material additionally includes supplied SNAP XML graphs and Python/GDAL-based processing steps.
+  The sensor-specific workflows use ESA SNAP operators through `gpt`, with XML graphs generated programmatically where needed. The BLS-BIOMASS material additionally includes supplied SNAP XML graphs and Python/GDAL-based processing steps. SNAP engine can be found in https://github.com/senbox-org/snap-engine.
 
 - **Reproducibility without abstraction loss**  
   Processing parameters and decisions remain visible in the notebooks and graph definitions. Reusing the workflows requires appropriate input data and environment configuration.
